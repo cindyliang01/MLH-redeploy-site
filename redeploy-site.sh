@@ -1,19 +1,16 @@
 
 #!/bin/bash
 
-tmux kill-session -t $session
+tmux kill-server
 cd MLH-project-vitrina
 git fetch && git reset origin/main --hard
  
-python -m venv python3-virtualenv
 source python3-virtualenv/bin/activate  
 
 pip install -r requirements.txt
 
-dnf install tmux
-tmux new
+tmux new-session -s cindy-website
 
-tmux list-sessions
-tmux attach-session -t SESSION_NAME
+flask run --host=0.0.0.0
 
-flask run
+tmux detach
